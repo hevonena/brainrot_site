@@ -1,4 +1,39 @@
 /* ================================
+   Font Faces
+   ================================ */
+@font-face {
+  font-family: 'Ruder';
+  src: url('/font/RuderPlakatLL-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unica';
+  src: url('/font/Unica77LL-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unica';
+  src: url('/font/Unica77LL-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cornbread';
+  src: url('/font/CornbreadTrialUnlicensed-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ================================
    CSS Variables - Design System
    ================================ */
 :root {
@@ -11,7 +46,17 @@
   --trail-duration: 0.6s;
 
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: 'Unica', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Ruder', Impact, 'Arial Black', sans-serif;
+  --font-bubble: 'Cornbread', cursive;
+
+  /* Container Design - Frosted Glass */
+  --container-padding-outer: 48px;
+  --container-padding-inner: 24px;
+  --container-gap: 48px;
+  --container-border-radius: 16px;
+  --container-bg: rgba(255, 255, 255, 0.75);
+  --container-backdrop-blur: 20px;
 }
 
 /* ================================
@@ -37,19 +82,10 @@ body {
 }
 
 /* ================================
-   Video Background
+   Video Background Layer (Fixed) - Hidden, using scrolling videos instead
    ================================ */
-#backgroundVideo {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  object-fit: cover;
+.video-background-layer {
+  display: none;
 }
 
 /* ================================
@@ -115,228 +151,450 @@ body {
 }
 
 /* ================================
-   Distance Display
+   Milestone Celebration
    ================================ */
-.distance-display {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-family);
-  pointer-events: none;
-  user-select: none;
-}
 
-.distance-value {
-  color: #000000;
-  font-size: 120px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -2px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .distance-value {
-    font-size: 72px;
-    letter-spacing: -1px;
-  }
-}
-
-/* ================================
-   iMessage Q&A Overlay
-   ================================ */
-.flashcard-overlay {
+/* Fullscreen overlay container */
+.milestone-celebration {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Above interaction-area (9999) */
   pointer-events: none;
-  overflow: hidden;
 }
 
-/* ================================
-   iMessage Container
-   ================================ */
-.imessage-container {
+.milestone-celebration.active {
+  display: flex;
+}
+
+/* Bubble wrapper - handles the smash animation */
+.milestone-bubble {
+  position: relative;
+  width: 80vmin;
+  height: 80vmin;
+  max-width: 600px;
+  max-height: 600px;
+  transform: scale(0) rotate(-15deg);
+  opacity: 0;
+}
+
+/* Smash animation when active */
+.milestone-celebration.active .milestone-bubble {
+  animation: bubble-smash 3.5s ease-out forwards;
+}
+
+@keyframes bubble-smash {
+  0% {
+    transform: scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+  /* Quick smash in */
+  15% {
+    transform: scale(1.15) rotate(5deg);
+    opacity: 1;
+  }
+  /* Bounce back */
+  25% {
+    transform: scale(0.95) rotate(-3deg);
+    opacity: 1;
+  }
+  /* Settle with slight wobble */
+  35% {
+    transform: scale(1.02) rotate(1deg);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  /* Hold visible */
+  75% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  /* Fade out */
+  100% {
+    transform: scale(0.9) rotate(5deg);
+    opacity: 0;
+  }
+}
+
+/* Bubble image (spiky explosion background) */
+.bubble-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   position: absolute;
-  left: 0;
-  right: 0;
   top: 0;
-  bottom: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 1.1rem;
-  overflow: hidden;
+  left: 0;
 }
 
-/* ================================
-   iMessage Bubble Base
-   ================================ */
-.imessage-bubble {
-  border-radius: 1.5rem;
-  line-height: 1.4;
-  max-width: 70%;
-  padding: 0.85rem 1.25rem;
+/* Text content positioned inside the bubble */
+.bubble-content {
   position: absolute;
-  word-wrap: break-word;
-  margin: 0;
-  pointer-events: none;
-  will-change: transform;
-  font-size: 2.2rem;
-}
-
-/* ================================
-   Question Bubble (right side, yellow - "from me")
-   ================================ */
-.imessage-question {
-  right: 24px;
-  background-color: #ffe102;
-  color: #000;
-}
-
-/* ================================
-   Answer Bubble (left side, gray - "from them")
-   ================================ */
-.imessage-answer {
-  left: 24px;
-  background-color: #e5e5ea;
-  color: #000;
-}
-
-/* ================================
-   SVG Tails
-   ================================ */
-.imessage-tail {
-  position: absolute;
-  bottom: -1px;
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-}
-
-.imessage-question .imessage-tail {
-  right: -8px;
-  color: #ffe102;
-}
-
-.imessage-answer .imessage-tail {
-  left: -8px;
-  color: #e5e5ea;
-  transform: scaleX(-1);
-}
-
-/* ================================
-   Notification Banner
-   Glass Morphism Design
-   ================================ */
-.notification-banner {
-  position: fixed;
-  top: 40px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-200%);
-  z-index: 5000;
-
-  /* Glass morphism effect */
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-
-  /* Styling */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-
-  /* Layout */
-  padding: 20px 32px;
-  min-width: 320px;
-  max-width: 500px;
-
-  /* Animation */
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  pointer-events: none;
-  user-select: none;
-}
-
-.notification-banner.visible {
-  transform: translateX(-50%) translateY(0);
-}
-
-.notification-content {
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
   align-items: center;
-  text-align: center;
+  gap: 8px;
 }
 
-.notification-distance {
-  font-size: 20px;
+/* Large milestone distance */
+.milestone-distance {
+  font-size: clamp(3rem, 12vmin, 6rem);
+  font-weight: 900;
+  color: #FFDD00;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  font-family: var(--font-bubble);
+  /* Black outline */
+  -webkit-text-stroke: 4px #000;
+  paint-order: stroke fill;
+}
+
+/* Self-deprecating exclamation */
+.milestone-exclamation {
+  font-size: clamp(0.9rem, 3vmin, 1.4rem);
   font-weight: 600;
-  color: #000000;
-  letter-spacing: -0.3px;
-
-  /* Subtle glass text effect */
-  text-shadow:
-    0 1px 2px rgba(255, 255, 255, 0.8),
-    0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #FFDD00;
+  line-height: 1.3;
+  max-width: 90%;
+  font-family: var(--font-bubble);
+  /* Black outline */
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
 }
 
-.notification-title {
-  font-size: 15px;
-  font-weight: 500;
-  color: #333333;
-  opacity: 0.9;
-
-  /* Subtle text effect */
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .notification-banner {
-    top: 20px;
-    padding: 16px 24px;
-    min-width: 280px;
-    max-width: calc(100% - 40px);
+/* Mobile adjustments for milestone */
+@media (max-width: 600px) {
+  .milestone-bubble {
+    width: 90vmin;
+    height: 90vmin;
   }
 
-  .notification-distance {
-    font-size: 18px;
+  .bubble-content {
+    width: 65%;
   }
 
-  .notification-title {
-    font-size: 14px;
+  .milestone-distance {
+    font-size: clamp(2.5rem, 15vmin, 4rem);
+  }
+
+  .milestone-exclamation {
+    font-size: clamp(0.8rem, 4vmin, 1.1rem);
   }
 }
 
 /* ================================
-   iMessage Responsive Design
+   Confetti Particles (GPU-accelerated)
    ================================ */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998; /* Behind milestone-celebration (10000) */
+  overflow: hidden;
+}
+
+.confetti-particle {
+  position: absolute;
+  font-size: 32px;
+  line-height: 1;
+  text-align: center;
+  will-change: transform, opacity;
+  pointer-events: none;
+  user-select: none;
+  /* GPU layer promotion */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ================================
+   Gen-Z Image with Comment Overlay
+   Social Media Comment Style
+   ================================ */
+
+/* Desktop: Split screen layout with frosted glass container */
+.genz-item {
+  /* Layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+
+  /* Container sizing */
+  max-width: 1400px;
+
+  /* Inner padding */
+  padding: var(--container-padding-inner);
+
+  /* Frosted glass effect */
+  background: var(--container-bg);
+  backdrop-filter: blur(var(--container-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--container-backdrop-blur));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--container-border-radius);
+
+  /* Shadows for depth */
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+
+  /* Prevent content overflow */
+  overflow: hidden;
+}
+
+/* Container for the image with text overlay */
+.genz-image-container {
+  position: relative;
+  width: 55%;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: calc(var(--container-border-radius) - 8px);
+}
+
+.genz-image-container > img,
+.genz-image-container > video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: calc(var(--container-border-radius) - 8px);
+}
+
+/* Gen-Z Text Overlay - centered on image with parallax */
+.genz-text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: white;
+  text-shadow:
+    -3px -3px 0 #000,
+    3px -3px 0 #000,
+    -3px 3px 0 #000,
+    3px 3px 0 #000,
+    0 0 15px rgba(0,0,0,0.6);
+  line-height: 1.25;
+  pointer-events: none;
+  z-index: 10;
+  will-change: transform;
+  text-transform: lowercase;
+}
+
+.genz-overlay {
+  width: 45%;
+  min-width: 45%;
+  background: transparent; /* Transparent since parent has frosted glass */
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+  padding-left: 12px;
+  /* Ensure overlay fills height */
+  align-self: stretch;
+}
+
+/* Header section */
+.genz-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 24px 32px 0;
+  flex-shrink: 0;
+}
+
+.genz-header .username {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+/* Divider line */
+.genz-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Comments section */
+.genz-comments {
+  flex: 1;
+  padding: 24px 24px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  min-height: 0; /* Allow shrinking */
+}
+
+.genz-comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.genz-comment .comment-text {
+  font-size: 2.2rem;
+  line-height: 1.25;
+  color: #000;
+  font-weight: 400;
+}
+
+.genz-comment .mention {
+  font-weight: 700;
+  color: #000;
+}
+
+/* Avatar images */
+img.avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  max-width: 44px;
+  max-height: 44px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/* Footer section */
+.genz-footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 36px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.genz-footer .add-comment {
+  font-size: 2.2rem;
+  color: #888;
+  font-weight: 400;
+}
+
+/* Mobile: Stacked layout with header on top of image */
 @media (max-width: 768px) {
-  .imessage-bubble {
-    max-width: 85%;
-    padding: 0.5rem 0.85rem;
-    font-size: 1.1rem;
-    border-radius: 1.1rem;
+  /* Mobile container adjustments */
+  :root {
+    --container-padding-outer: 16px;
+    --container-padding-inner: 16px;
+    --container-gap: 32px;
+    --container-border-radius: 12px;
   }
 
-  .imessage-question {
-    right: 12px;
+  .genz-item {
+    flex-direction: column;
   }
 
-  .imessage-answer {
-    left: 12px;
+  .infinite-scroll-item.genz-item {
+    width: calc(100% - var(--container-padding-outer) * 2) !important;
+    left: var(--container-padding-outer);
+  }
+
+  .genz-image-container {
+    width: 100%;
+    order: 2; /* Image comes after header */
+    border-radius: calc(var(--container-border-radius) - 6px);
+  }
+
+  .genz-image-container > img,
+  .genz-image-container > video {
+    border-radius: calc(var(--container-border-radius) - 6px);
+  }
+
+  .genz-text-overlay {
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  .genz-overlay {
+    width: 100%;
+    min-width: 100%;
+    min-height: auto;
+    padding-left: 0;
+    padding-top: var(--container-padding-inner);
+    display: contents; /* Let children flow in parent flex */
+  }
+
+  /* Header on top of image */
+  .genz-header {
+    order: 1;
+    padding: 12px 12px 12px 0;
+    gap: 8px;
+    background: transparent;
+  }
+
+  /* Comments below image */
+  .genz-comments {
+    order: 3;
+    padding: 12px 12px 12px 0;
+    gap: 12px;
+    background: transparent;
+  }
+
+  .genz-comment {
+    gap: 8px;
+  }
+
+  .genz-divider {
+    order: 4;
+    display: none; /* Hide divider on mobile */
+  }
+
+  .genz-footer {
+    order: 5;
+    padding: 12px 16px;
+    background: transparent;
+  }
+
+  img.avatar {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    max-width: 28px;
+    max-height: 28px;
+  }
+
+  .genz-header .username {
+    font-size: 1rem;
+  }
+
+  .genz-comment .comment-text {
+    font-size: 0.95rem;
+  }
+
+  .genz-footer .add-comment {
+    font-size: 0.9rem;
+  }
+
+  .infinite-scroll-track.genz-track {
+    padding: var(--container-padding-outer);
+    padding-top: calc(var(--container-padding-outer) + 8vh);
   }
 }
 
@@ -360,44 +618,262 @@ body {
   left: 0;
   width: 100%;
   will-change: transform;
+  z-index: 1; /* Videos/images track - behind distance display */
+}
+
+/* Video track - scrolling background layer */
+.infinite-scroll-track:not(.genz-track) {
+  z-index: 1;
+}
+
+.infinite-scroll-track.genz-track {
+  z-index: 100; /* Gen-Z track - in front of distance display */
+  padding: var(--container-padding-outer);
+  padding-top: calc(var(--container-padding-outer) + 10vh); /* Start content below fold */
 }
 
 .infinite-scroll-item {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1; /* Videos and regular images in the back */
+}
+
+/* Gen-Z items - override width for outer padding */
+.infinite-scroll-item.genz-item {
+  z-index: 100;
+  width: calc(100% - var(--container-padding-outer) * 2) !important;
+  left: var(--container-padding-outer);
+}
+
+/* Background videos - cover full viewport, no gaps */
+.infinite-scroll-track:not(.genz-track) .infinite-scroll-item {
+  height: 100vh;
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-/* Desktop: fit height, crop width for consistency */
-@media (min-width: 768px) {
-  .infinite-scroll-item img,
-  .infinite-scroll-item video {
-    height: 100%;
-    width: auto;
-    min-width: 100%;
-    object-fit: cover;
-    object-position: center;
+.infinite-scroll-track:not(.genz-track) .infinite-scroll-item video,
+.infinite-scroll-track:not(.genz-track) .infinite-scroll-item img {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gen-z item media - fit within container */
+.infinite-scroll-item.genz-item img,
+.infinite-scroll-item.genz-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ================================
+   Intro Sequence
+   ================================ */
+
+/* Fullscreen overlay - above everything */
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10001; /* Above milestone (10000) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* Each bubble - positioned absolutely for stacking */
+.intro-bubble {
+  /* Position variables */
+  --offset-x: 0vw;
+  --offset-y: 0vh;
+  --final-rotation: 0deg;
+  /* Animation variables (randomized per bubble) */
+  --anim-duration: 0.6s;
+  --bounce-scale: 1.2;
+  --start-rotation: -25deg;
+  --mid-rotation: 8deg;
+
+  position: absolute;
+  left: calc(50% + var(--offset-x));
+  top: calc(50% + var(--offset-y));
+  width: 80vmin;
+  height: 80vmin;
+  max-width: 600px;
+  max-height: 600px;
+  transform: translate(-50%, -50%) scale(0) rotate(var(--start-rotation));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Bubble background image */
+.intro-bubble-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Smash-in animation - duration varies per bubble */
+.intro-bubble.smashing {
+  animation: intro-smash var(--anim-duration) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* After smash, bubble stays visible - !important ensures it sticks */
+.intro-bubble.visible {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)) !important;
+  animation: none !important;
+}
+
+/* Exit: slide up as if swept by the scrolling feed */
+.intro-bubble.exiting {
+  animation: intro-sweep-up 0.6s ease-in forwards !important;
+}
+
+@keyframes intro-smash {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(var(--start-rotation));
+    opacity: 0;
+  }
+  45% {
+    transform: translate(-50%, -50%) scale(var(--bounce-scale)) rotate(var(--mid-rotation));
+    opacity: 1;
+  }
+  65% {
+    transform: translate(-50%, -50%) scale(0.92) rotate(calc(var(--final-rotation) - 5deg));
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.04) rotate(calc(var(--final-rotation) + 2deg));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation));
+    opacity: 1;
   }
 }
 
-/* Mobile: fit width, touch left and right edges */
-@media (max-width: 767px) {
-  .infinite-scroll-item {
-    height: auto;
-    min-height: 100vh;
+/* Swept up by the feed - slides up and out */
+@keyframes intro-sweep-up {
+  0% {
+    transform: translate(-50%, -50%) translateY(0) scale(1) rotate(var(--final-rotation));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-120vh) scale(0.9) rotate(var(--final-rotation));
+    opacity: 0;
+  }
+}
+
+/* Bubble content - centered inside bubble */
+.intro-bubble-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+/* Title text */
+.intro-title {
+  font-size: clamp(2.5rem, 10vmin, 5rem);
+  font-weight: 900;
+  color: #FFDD00;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  font-family: var(--font-bubble);
+  /* Black outline */
+  -webkit-text-stroke: 4px #000;
+  paint-order: stroke fill;
+}
+
+/* Subtext */
+.intro-subtext {
+  font-size: clamp(0.9rem, 3vmin, 1.4rem);
+  font-weight: 600;
+  color: #FFDD00;
+  line-height: 1.3;
+  max-width: 90%;
+  font-family: var(--font-bubble);
+  /* Black outline */
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+}
+
+/* Accept button */
+.intro-accept-btn {
+  margin-top: 16px;
+  padding: 16px 32px;
+  font-size: clamp(1rem, 2.5vmin, 1.3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #FFDD00;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s, background 0.2s;
+  font-family: var(--font-bubble);
+}
+
+.intro-accept-btn:hover {
+  transform: scale(1.05);
+  background: #ffe433;
+}
+
+.intro-accept-btn:active {
+  transform: scale(0.98);
+}
+
+/* Fade-out transition for entire overlay */
+.intro-overlay.fading {
+  animation: intro-fade-out 1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes intro-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .intro-bubble {
+    width: 90vmin;
+    height: 90vmin;
   }
 
-  .infinite-scroll-item img,
-  .infinite-scroll-item video {
-    width: 100%;
-    height: auto;
-    min-height: 100vh;
-    object-fit: cover;
-    object-position: center;
+  .intro-bubble-content {
+    width: 65%;
+  }
+
+  .intro-accept-btn {
+    padding: 14px 24px;
   }
 }

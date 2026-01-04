@@ -1,122 +1,132 @@
 [
-    {
-      "title": "Brainrot Content?",
-      "content": "Brainrot refers to ultra-short, hyper-stimulating, often absurd loops designed for maximum engagement, trading depth and coherence for novelty and rapid reward cycles."
-    },
-    {
-      "title": "Attention Sink Holes",
-      "content": "Attention sink holes are design patterns that capture more attention than users intend by exploiting cognitive biases and evolved reward circuits."
-    },
-    {
-      "title": "Mesolimbic Dopamine Loop",
-      "content": "Brainrot hijacks the dopamine pathway from the VTA to the nucleus accumbens, creating rapid micro-reward spikes that reinforce continuous scrolling."
-    },
-    {
-      "title": "Variable Ratio Reinforcement",
-      "content": "Unpredictable rewards—likes, surprises, punchlines—activate the strongest psychological reinforcement schedule, making scrolling feel compulsive."
-    },
-    {
-      "title": "Prefrontal Cortex Fatigue",
-      "content": "Hyper-stimulating content fatigues the brain’s control systems, reducing willpower and making disengaging increasingly difficult."
-    },
-    {
-      "title": "Neuroplastic Effects",
-      "content": "Repeated attention capture reshapes the brain by strengthening reward networks and weakening cognitive control systems, similar to behavioral addictions."
-    },
-    {
-      "title": "Individual Vulnerability",
-      "content": "ADHD traits, impulsivity, low working memory, and dopamine-related genes increase susceptibility to brainrot-style attention capture."
-    },
-    {
-      "title": "Healthy Flow vs Brainrot Fixation",
-      "content": "Flow is voluntary and goal-oriented; brainrot fixation is involuntary and disruptive, overriding healthy stopping mechanisms."
-    },
-    {
-      "title": "SUCCES Principles of Stickiness",
-      "content": "Brainrot uses surprise, emotion, concreteness, and micro-storytelling to produce extremely sticky content in seconds."
-    },
-    {
-      "title": "Hyper-Short Content Loops",
-      "content": "1–12 second videos deliver novelty faster than conscious processing can keep up, generating rapid micro-dopamine cycles."
-    },
-    {
-      "title": "Sludge Editing & Sensory Overload",
-      "content": "Layered gameplay, subtitles, memes, and chaotic audio overwhelm working memory, reinforcing overstimulated attention loops."
-    },
-    {
-      "title": "Cognitive Overload as Capture",
-      "content": "Brainrot saturates cognitive load with competing stimuli, preventing reflective thought and disrupting self-interruption."
-    },
-    {
-      "title": "Algorithmic Remix Culture",
-      "content": "Brainrot content mutates rapidly through remixing—audio reuse, meme evolution, chaotic edits—amplified by algorithms."
-    },
-    {
-      "title": "Fast Feedback Algorithms",
-      "content": "Algorithms like TikTok’s adjust feeds within seconds of behavior, creating tightly personalized and addictive content loops."
-    },
-    {
-      "title": "Adolescents’ Vulnerability Window",
-      "content": "Teen brains, with high dopamine sensitivity and weak prefrontal control, are particularly vulnerable to brainrot's rapid reward cycles."
-    },
-    {
-      "title": "Cultural Meaning of Brainrot",
-      "content": "For many young users, brainrot acts as a social language, humor style, and identity signal—not only a cognitive trap."
-    },
-    {
-      "title": "Historical Attention Capture",
-      "content": "Brainrot continues a historical trend from newspapers to TV to the internet: each iteration further compresses and accelerates content."
-    },
-    {
-      "title": "Dark Patterns and Persuasive Designs",
-      "content": "Infinite scroll, autoplay, and disappearing stories remove natural stopping points, extending time spent unintentionally."
-    },
-    {
-      "title": "The Economics Behind Brainrot",
-      "content": "Platforms profit from engagement, incentivizing attention-maximizing designs even when they harm focus or wellbeing."
-    },
-    {
-      "title": "Pathological Engagement Signals",
-      "content": "Compulsive use, withdrawal, disrupted responsibilities, and difficulty limiting screen time are signs of problematic engagement."
-    },
-    {
-      "title": "Comorbidities and Mental Health",
-      "content": "Brainrot-style overuse correlates with anxiety, depression, ADHD, and social withdrawal, often forming self-reinforcing loops."
-    },
-    {
-      "title": "Evolutionary Mismatch",
-      "content": "Human attention evolved for sparse, important stimuli; brainrot exploits supernormal signals far beyond ancestral conditions."
-    },
-    {
-      "title": "Cultural Differences in Attention",
-      "content": "Analytic vs. holistic attention styles across cultures influence how different populations engage with or resist brainrot stimuli."
-    },
-    {
-      "title": "Micro-Attention Fragmentation",
-      "content": "Exposure to ultra-short content reduces tolerance for slow, ambiguous, or effortful tasks, fragmenting attention spans."
-    },
-    {
-      "title": "Executive Function Erosion",
-      "content": "Brainrot weakens planning, impulse control, and boredom tolerance as the brain becomes conditioned to constant stimulation."
-    },
-    {
-      "title": "Tech Boundaries and Environmental Hacks",
-      "content": "Blocking apps, scheduled notifications, and removing infinite scroll modify default behaviors more effectively than willpower alone."
-    },
-    {
-      "title": "Mindfulness and Inhibitory Control",
-      "content": "Mindfulness strengthens the brain’s ability to pause before acting, helping counter impulsive digital use when combined with CBT strategies."
-    },
-    {
-      "title": "Regulatory Actions",
-      "content": "Governments increasingly target manipulative UX and dark patterns, though enforcement and global consistency remain limited."
-    },
-    {
-      "title": "Alternative Media Diets",
-      "content": "Switching from micro-content to slower, intentional media helps recalibrate stimulation thresholds and rebuild deep focus."
-    },
-    {
-      "title": "The Central Insight",
-      "content": "Brainrot emerges from evolved brains encountering hyper-optimized stimuli; understanding the mechanisms enables reclaiming attention."
-    }
-  ]
+  {
+    "title": "Brainrot Content?",
+    "content": "Brainrot refers to ultra-short, hyper-stimulating, often absurd loops designed for maximum engagement, trading depth and coherence for novelty and rapid reward cycles.",
+    "genZ": "diagnosed with terminal scroll disease fr"
+  },
+  {
+    "title": "Attention Sink Holes",
+    "content": "Attention sink holes are design patterns that capture more attention than users intend by exploiting cognitive biases and evolved reward circuits.",
+    "genZ": "opened the app for 2 mins, woke up 3 hours later in Ohio"
+  },
+  {
+    "title": "Mesolimbic Dopamine Loop",
+    "content": "Brainrot hijacks the dopamine pathway from the VTA to the nucleus accumbens, creating rapid micro-reward spikes that reinforce continuous scrolling.",
+    "genZ": "brain going: one more video then we touch grass (lie)"
+  },
+  {
+    "title": "Prefrontal Cortex Fatigue",
+    "content": "Hyper-stimulating content fatigues the brain’s control systems, reducing willpower and making disengaging increasingly difficult.",
+    "genZ": "i could stop if i wanted *continues scrolling with dead eyes*"
+  },
+  {
+    "title": "Neuroplastic Effects",
+    "content": "Repeated attention capture reshapes the brain by strengthening reward networks and weakening cognitive control systems, similar to behavioral addictions.",
+    "genZ": "rewired my brain so books now feel like dial-up internet"
+  },
+  {
+    "title": "Individual Vulnerability",
+    "content": "ADHD traits, impulsivity, low working memory, and dopamine-related genes increase susceptibility to brainrot-style attention capture.",
+    "genZ": "some of us are built scroll-first, think-later"
+  },
+  {
+    "title": "Healthy Flow vs Brainrot Fixation",
+    "content": "Flow is voluntary and goal-oriented; brainrot fixation is involuntary and disruptive, overriding healthy stopping mechanisms.",
+    "genZ": "focused mode is ‘i made art’, brainrot mode is ‘where did my evening go’"
+  },
+  {
+    "title": "SUCCES Principles of Stickiness",
+    "content": "Brainrot uses surprise, emotion, concreteness, and micro-storytelling to produce extremely sticky content in seconds.",
+    "genZ": "why did a 7-second meme live in my head rent-free for 3 months"
+  },
+  {
+    "title": "Hyper-Short Content Loops",
+    "content": "1–12 second videos deliver novelty faster than conscious processing can keep up, generating rapid micro-dopamine cycles.",
+    "genZ": "attention span set to ‘TikTok trailer of a TikTok’"
+  },
+  {
+    "title": "Sludge Editing & Sensory Overload",
+    "content": "Layered gameplay, subtitles, memes, and chaotic audio overwhelm working memory, reinforcing overstimulated attention loops.",
+    "genZ": "watching subway surfers, family guy, minecraft parkour and a breakup story at the same time: peak cinema"
+  },
+  {
+    "title": "Cognitive Overload as Capture",
+    "content": "Brainrot saturates cognitive load with competing stimuli, preventing reflective thought and disrupting self-interruption.",
+    "genZ": "too many sounds to think, perfect amount to keep scrolling"
+  },
+  {
+    "title": "Fast Feedback Algorithms",
+    "content": "Algorithms like TikTok’s adjust feeds within seconds of behavior, creating tightly personalized and addictive content loops.",
+    "genZ": "app clocked my whole personality in 0.3 seconds"
+  },
+  {
+    "title": "Adolescents’ Vulnerability Window",
+    "content": "Teen brains, with high dopamine sensitivity and weak prefrontal control, are particularly vulnerable to brainrot's rapid reward cycles.",
+    "genZ": "brain still installing self-control.exe, but the feed is already on ultra mode"
+  },
+  {
+    "title": "Cultural Meaning of Brainrot",
+    "content": "For many young users, brainrot acts as a social language, humor style, and identity signal—not only a cognitive trap.",
+    "genZ": "we don’t talk, we just quote the same cursed audio at each other"
+  },
+  {
+    "title": "Historical Attention Capture",
+    "content": "Brainrot continues a historical trend from newspapers to TV to the internet: each iteration further compresses and accelerates content.",
+    "genZ": "from novels to tweets to 3-second clips: speedrunning culture"
+  },
+  {
+    "title": "The Economics Behind Brainrot",
+    "content": "Platforms profit from engagement, incentivizing attention-maximizing designs even when they harm focus or wellbeing.",
+    "genZ": "your cooked attention span is someone else’s quarterly bonus"
+  },
+  {
+    "title": "Pathological Engagement Signals",
+    "content": "Compulsive use, withdrawal, disrupted responsibilities, and difficulty limiting screen time are signs of problematic engagement.",
+    "genZ": "when you say ‘one more vid’ the app laughs"
+  },
+  {
+    "title": "Comorbidities and Mental Health",
+    "content": "Brainrot-style overuse correlates with anxiety, depression, ADHD, and social withdrawal, often forming self-reinforcing loops.",
+    "genZ": "sad, scrolling to forget you’re sad, now you’re sad and it’s 3am"
+  },
+  {
+    "title": "Evolutionary Mismatch",
+    "content": "Human attention evolved for sparse, important stimuli; brainrot exploits supernormal signals far beyond ancestral conditions.",
+    "genZ": "hunter-gatherer brain trying to process 1,000 memes per minute"
+  },
+  {
+    "title": "Cultural Differences in Attention",
+    "content": "Analytic vs. holistic attention styles across cultures influence how different populations engage with or resist brainrot stimuli.",
+    "genZ": "same app, different brains, equally cooked but in unique ways"
+  },
+  {
+    "title": "Micro-Attention Fragmentation",
+    "content": "Exposure to ultra-short content reduces tolerance for slow, ambiguous, or effortful tasks, fragmenting attention spans.",
+    "genZ": "can’t start a movie but can watch 90 clips summarizing it wrong"
+  },
+  {
+    "title": "Executive Function Erosion",
+    "content": "Brainrot weakens planning, impulse control, and boredom tolerance as the brain becomes conditioned to constant stimulation.",
+    "genZ": "planner says ‘study’, thumb says ‘doomscroll side quest’"
+  },
+  {
+    "title": "Tech Boundaries and Environmental Hacks",
+    "content": "Blocking apps, scheduled notifications, and removing infinite scroll modify default behaviors more effectively than willpower alone.",
+    "genZ": "if the app is blocked, i literally can’t fumble the bag"
+  },
+  {
+    "title": "Regulatory Actions",
+    "content": "Governments increasingly target manipulative UX and dark patterns, though enforcement and global consistency remain limited.",
+    "genZ": "EU trying to nerf the dopamine patch notes"
+  },
+  {
+    "title": "Alternative Media Diets",
+    "content": "Switching from micro-content to slower, intentional media helps recalibrate stimulation thresholds and rebuild deep focus.",
+    "genZ": "raw-dogging a book with no background noise or side quests"
+  },
+  {
+    "title": "The Central Insight",
+    "content": "Brainrot emerges from evolved brains encountering hyper-optimized stimuli; understanding the mechanisms enables reclaiming attention.",
+    "genZ": "the call is coming from inside your dopamine system"
+  }
+]

@@ -1,43 +1,25 @@
 import './style.css'
-// import { VideoController } from './VideoController.js'
-// import { CircularNavigator } from './CircularNavigator.js'
-import { DistanceDisplay } from './DistanceDisplay.js'
-import { FlashcardOverlay } from './FlashcardOverlay.js'
+import { MilestoneCelebration } from './MilestoneCelebration.js'
 import { ScrollNavigator } from './ScrollNavigator.js'
-import NotificationBanner from './NotificationBanner.js'
-import { DistanceGenerator } from './DistanceGenerator.js'
 import { InfiniteScroll } from './InfiniteScroll.js'
+import { IntroSequence } from './IntroSequence.js'
 
 // Get DOM elements
-// const video = document.getElementById('backgroundVideo');
 const interactionArea = document.getElementById('interactionArea');
 
-// // Initialize circular navigator (generic, reusable - no UI dependencies)
-// const navigator = new CircularNavigator(interactionArea, {
-//   stepsPerRotation: 150,
-//   showTrail: true
-// });
 const navigator = new ScrollNavigator(interactionArea);
 
-// Initialize video controller
-// const videoController = new VideoController(video);
-
-// Initialize distance display UI
-const distanceDisplay = new DistanceDisplay({
-  showAbsolute: false,
-  showSigned: true
+// Initialize milestone celebration
+// Uses same bubble images as intro: bubble.png, bubble_1.png, etc.
+const milestoneCelebration = new MilestoneCelebration({
+  duration: 3500
 });
 
-// Connect the navigator to the video controller
-// videoController.connectNavigator(navigator);
+// NOTE: Don't connect milestone celebration yet - wait for intro to complete
 
-// Connect the distance display to the navigator
-distanceDisplay.connectNavigator(navigator);
-
-// Log distance info on first rotation
+// Log screen info on first rotation
 let hasLoggedScreenInfo = false;
 
-// Log signed distance for debugging
 navigator.on('rotate', (data) => {
   // Log screen info once
   if (!hasLoggedScreenInfo) {
@@ -49,91 +31,38 @@ navigator.on('rotate', (data) => {
     console.log('---');
     hasLoggedScreenInfo = true;
   }
-
-  // Get distance in meters
-//   const distanceInMeters = navigator.getDistanceInMeters();
-
-//   console.log('Distance (px):', data.distance.total.toFixed(2) + 'px',
-//               '| Distance (m):', distanceInMeters.total.toFixed(4) + 'm',
-//               '| Delta (m):', (data.distance.delta / distanceInMeters.pixelsPerMeter).toFixed(6) + 'm',
-//               '| Direction:', data.direction);
 });
 
-// Distance configuration for cards and notifications
-const distanceConfig = {
-  mode: 'random', // 'fixed' or 'random'
-  metersPerCard: 10, // Base distance between cards (for fixed mode or random average)
-  cardLifetimeMeters: 1.0, // Each card remains visible for 1 meter
-  marginBeforeNextCard: 0.0, // Notification disappears this many meters before next card
-  randomMinMeters: 2, // Minimum distance between cards (random mode only)
-  randomMaxMeters: 8, // Maximum distance between cards (random mode only)
-};
-
-// Initialize components with distance generation
+// Initialize components
 async function initializeApp() {
   try {
-    // Initialize infinite scroll background
+    // Initialize infinite scroll (includes gen-z overlays)
     const infiniteScroll = new InfiniteScroll();
     await infiniteScroll.init();
-    infiniteScroll.connectNavigator(navigator);
 
-    // Load flashcards first to know the count
-    const response = await fetch('/flashcards.json');
-    const flashcards = await response.json();
+    // NOTE: Don't connect navigator yet - intro will control scrolling first
 
-    console.log(`Loaded ${flashcards.length} flashcards`);
-
-    // Generate card distances based on mode
-    const cardDistances = DistanceGenerator.generateDistances(flashcards.length, {
-      mode: distanceConfig.mode,
-      metersPerCard: distanceConfig.metersPerCard,
-      randomMinMeters: distanceConfig.randomMinMeters,
-      randomMaxMeters: distanceConfig.randomMaxMeters
+    // Create and start intro sequence
+    const introSequence = new IntroSequence({
+      // Bubble images: bubble.png, bubble_1.png, bubble_2.png, etc.
+      // Add more images to /content/bubbles/ and they'll be picked randomly
+      autoScrollSpeed: 60,
+      bubbleDelay: 500,
+      onComplete: () => {
+        // After intro, connect navigator for user control
+        infiniteScroll.connectNavigator(navigator);
+        milestoneCelebration.connectNavigator(navigator);
+        console.log('Intro complete - user control enabled');
+      }
     });
 
-    // Generate notification windows based on card distances
-    const notificationWindows = DistanceGenerator.generateNotificationWindows(
-      cardDistances,
-      distanceConfig.cardLifetimeMeters,
-      distanceConfig.marginBeforeNextCard
-    );
+    // Connect intro to infinite scroll for auto-scroll control
+    introSequence.connectInfiniteScroll(infiniteScroll);
 
-    console.log(`Generated ${cardDistances.length} card distances (${distanceConfig.mode} mode)`);
-    console.log(`Generated ${notificationWindows.length} notification windows`);
+    // Start the intro sequence
+    introSequence.start();
 
-    // Detect mobile for different rest positions
-    const isMobile = window.innerWidth < 768;
-
-    // Initialize flashcard overlay with pre-generated distances
-    const flashcardOverlay = new FlashcardOverlay({
-      metersPerCard: distanceConfig.metersPerCard,
-      cardLifetimeMeters: distanceConfig.cardLifetimeMeters,
-      cardDistances: cardDistances,
-      // Animation phases (as percentage of cardLifetimeMeters)
-      questionEnterEnd: 0.15, // Question finishes entering at 15%
-      answerEnterStart: 0.15, // Answer starts entering at 15%
-      answerEnterEnd: 0.35, // Answer finishes entering at 35%
-      exitStart: 0.70, // Both start exiting at 70%
-      // Rest positions (from bottom of screen, 0-1) - higher on mobile
-      questionRestY: isMobile ? 0.40 : 0.35,
-      answerRestY: isMobile ? 0.29 : 0.22
-    });
-
-    await flashcardOverlay.init();
-
-    // Connect the flashcard overlay to the navigator for distance tracking
-    flashcardOverlay.connectNavigator(navigator);
-
-    // Create notification banner with pre-generated windows
-    const notificationBanner = new NotificationBanner(flashcards, {
-      ...distanceConfig,
-      notificationWindows: notificationWindows // Pass pre-generated notification windows
-    });
-
-    // Connect the notification banner to the navigator
-    notificationBanner.connectNavigator(navigator);
-
-    console.log('App initialized successfully');
+    console.log('App initialized with intro sequence');
   } catch (error) {
     console.error('Failed to initialize app:', error);
   }
