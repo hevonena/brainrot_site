@@ -3,15 +3,9 @@ const GENZ_EMOJIS = ['💀', '😭', '🔥', '💯', '🤡', '👀', '😩', '�
 
 export class MilestoneCelebration {
   constructor(options = {}) {
-    // Configuration - support multiple bubble images
-    this.bubbleImages = options.bubbleImages || [
-      '/content/bubbles/bubble.png',
-      '/content/bubbles/bubble_1.png',
-      '/content/bubbles/bubble_2.png',
-      '/content/bubbles/bubble_3.png',
-      '/content/bubbles/bubble_4.png',
-    ];
-    this.celebrationDuration = options.duration || 3500;
+    // Configuration - single bubble image
+    this.bubbleImage = options.bubbleImage || '/content/bubbles/bubble.svg';
+    this.celebrationDuration = options.duration || 2800;
 
     // State
     this.lastMilestoneReached = 0;
@@ -106,14 +100,6 @@ export class MilestoneCelebration {
     this.createUI();
   }
 
-  /**
-   * Get a random bubble image
-   */
-  getRandomBubbleImage() {
-    const index = Math.floor(Math.random() * this.bubbleImages.length);
-    return this.bubbleImages[index];
-  }
-
   createUI() {
     // Main container (fullscreen overlay)
     this.container = document.createElement('div');
@@ -123,15 +109,11 @@ export class MilestoneCelebration {
     this.bubble = document.createElement('div');
     this.bubble.className = 'milestone-bubble';
 
-    // Bubble image background (will be randomized on each celebration)
+    // Bubble image background
     this.bubbleImg = document.createElement('img');
-    this.bubbleImg.src = this.getRandomBubbleImage();
+    this.bubbleImg.src = this.bubbleImage;
     this.bubbleImg.alt = '';
     this.bubbleImg.className = 'bubble-image';
-    // Fallback if image doesn't exist
-    this.bubbleImg.onerror = () => {
-      this.bubbleImg.src = this.bubbleImages[0];
-    };
 
     // Content container (text inside bubble)
     this.contentDiv = document.createElement('div');
@@ -187,9 +169,6 @@ export class MilestoneCelebration {
    */
   celebrate(milestone) {
     this.isCelebrating = true;
-
-    // Randomize bubble image for this celebration
-    this.bubbleImg.src = this.getRandomBubbleImage();
 
     // Update content
     this.distanceDiv.textContent = this.formatMilestone(milestone);
