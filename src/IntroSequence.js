@@ -16,7 +16,7 @@ export class IntroSequence {
 
     // Single bubble content
     this.finalBubble = options.finalBubble || {
-      title: "I accept brainrot"
+      title: "do you accept brainrot??!"
     };
 
     // State
